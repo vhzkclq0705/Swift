@@ -20,14 +20,43 @@ class ImageCache {
     
     // MARK: Functions
     
-    func loadImages(_ url: URL, completion: (UIImage?) -> Void) {
+    /// Load image from memory cache
+    func loadImage(_ url: URL, completion: @escaping (UIImage?) -> Void) {
         // Check memory cache
         if let cachedImage = memoryCache.object(forKey: url.absoluteString as NSString) {
+            Works.displayResult(.loadFromMemory, url.lastPathComponent)
             completion(cachedImage)
             return
         }
         
         // Check disk cache
+        DispatchQueue.global().async {
+            if let cachedImage = DiskCache.shared.loadImage(url) {
+                // Save loaded image to memory
+                self.saveImage(cachedImage, url)
+                completion(cachedImage)
+                return
+            }
+            
+            if let imageData = try? Data(contentsOf: url),
+               let image = UIImage(data: imageData) {
+                // Save downloaded image to memory and disk
+                self.saveImage(image, url)
+                DiskCache.shared.saveImage(image, url)
+                completion(image)
+            } else {
+                completion(nil)
+            }
+            
+        }
+        
         
     }
+    
+    /// Save image to memory cache
+    func saveImage(_ image: UIImage, _ url: URL) {
+        memoryCache.setObject(image, forKey: url.absoluteString as NSString)
+        Works.displayResult(.saveToMemory, url.lastPathComponent)
+    }
+    
 }
