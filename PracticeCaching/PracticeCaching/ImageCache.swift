@@ -21,7 +21,12 @@ class ImageCache {
     // MARK: Functions
     
     /// Load image from memory cache
-    func loadImage(_ url: URL, completion: @escaping (UIImage?) -> Void) {
+    func loadImage(_ url: URL?, completion: @escaping (UIImage?) -> Void) {
+        guard let url = url else {
+            completion(nil)
+            return
+        }
+        
         // Check memory cache
         if let cachedImage = memoryCache.object(forKey: url.absoluteString as NSString) {
             Works.displayResult(.loadFromMemory, url.lastPathComponent)
@@ -43,8 +48,10 @@ class ImageCache {
                 // Save downloaded image to memory and disk
                 self.saveImage(image, url)
                 DiskCache.shared.saveImage(image, url)
+                print("Newly downloaded the image.")
                 completion(image)
             } else {
+                print("Can't download the image.")
                 completion(nil)
             }
             

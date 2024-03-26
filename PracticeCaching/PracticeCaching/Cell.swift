@@ -41,7 +41,7 @@ class Cell: UICollectionViewCell {
     
     // MARK: - Functions
     
-    public func updateImageView(img: UIImage?) {
+    func updateImageView(img: UIImage?) {
         imageView.image = img
     }
     

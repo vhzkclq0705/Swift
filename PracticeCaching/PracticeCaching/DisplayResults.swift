@@ -22,7 +22,7 @@ extension Works {
         case .loadFromDisk: print("Load \(name) from Disk")
         case .loadFromMemory: print("Load \(name) from Memory")
         case .saveToDisk: print("Save \(name) to Disk")
-        case .saveToMemory: print("Save \(name) to Disk")
+        case .saveToMemory: print("Save \(name) to Memory")
         }
     }
     
