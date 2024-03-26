@@ -19,6 +19,7 @@
 		761B98E52BB2C78D006EC0FA /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B98E42BB2C78D006EC0FA /* ImageCache.swift */; };
 		761B98E72BB2C9D5006EC0FA /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B98E62BB2C9D5006EC0FA /* DiskCache.swift */; };
 		761B98EB2BB2FECC006EC0FA /* CacheOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B98EA2BB2FECC006EC0FA /* CacheOption.swift */; };
+		761B98ED2BB2FF38006EC0FA /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B98EC2BB2FF38006EC0FA /* Cacheable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		761B98E42BB2C78D006EC0FA /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		761B98E62BB2C9D5006EC0FA /* DiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
 		761B98EA2BB2FECC006EC0FA /* CacheOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheOption.swift; sourceTree = "<group>"; };
+		761B98EC2BB2FF38006EC0FA /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				761B98CA2BB2B498006EC0FA /* AppDelegate.swift */,
 				761B98CC2BB2B498006EC0FA /* SceneDelegate.swift */,
 				761B98CE2BB2B498006EC0FA /* ViewController.swift */,
+				761B98EC2BB2FF38006EC0FA /* Cacheable.swift */,
 				761B98E42BB2C78D006EC0FA /* ImageCache.swift */,
 				761B98E62BB2C9D5006EC0FA /* DiskCache.swift */,
 				761B98EA2BB2FECC006EC0FA /* CacheOption.swift */,
@@ -160,6 +163,7 @@
 				761B98E72BB2C9D5006EC0FA /* DiskCache.swift in Sources */,
 				761B98CB2BB2B498006EC0FA /* AppDelegate.swift in Sources */,
 				761B98E32BB2BFDA006EC0FA /* Model.swift in Sources */,
+				761B98ED2BB2FF38006EC0FA /* Cacheable.swift in Sources */,
 				761B98E12BB2B9D6006EC0FA /* Cell.swift in Sources */,
 				761B98EB2BB2FECC006EC0FA /* CacheOption.swift in Sources */,
 				761B98DF2BB2B7DE006EC0FA /* API.swift in Sources */,
