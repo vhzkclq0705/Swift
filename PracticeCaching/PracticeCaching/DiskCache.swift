@@ -33,7 +33,11 @@ class DiskCache: Cacheable {
     }
     
     /// Save image to disk cache
-    func saveImage(_ image: UIImage, _ url: URL) {
+    func saveImage(_ image: UIImage, _ url: URL, _ option: CacheOption) {
+        if option == .onlyMemory || option == .nothing {
+            return
+        }
+        
         if let filePath = checkPath(url) {
             fileManager.createFile(
                 atPath: filePath,

@@ -21,7 +21,11 @@ class ImageCache: Cacheable {
     // MARK: Functions
     
     /// Load image from memory cache
-    func loadImage(_ url: URL?, completion: @escaping (UIImage?) -> Void) {
+    func loadImage(
+        _ url: URL?,
+        _ option: CacheOption = .both,
+        completion: @escaping (UIImage?) -> Void)
+    {
         guard let url = url else {
             completion(nil)
             return
@@ -40,7 +44,7 @@ class ImageCache: Cacheable {
         DispatchQueue.global().async {
             if let cachedImage = DiskCache.shared.loadImage(url) {
                 // Save loaded image to memory
-                self.saveImage(cachedImage, url)
+                self.saveImage(cachedImage, url, option)
                 completion(cachedImage)
                 return
             }
@@ -49,19 +53,22 @@ class ImageCache: Cacheable {
                let image = UIImage(data: imageData) {
                 // Save downloaded image to memory and disk
                 print("Download the image.")
-                self.saveImage(image, url)
-                DiskCache.shared.saveImage(image, url)
+                self.saveImage(image, url, option)
+                DiskCache.shared.saveImage(image, url, option)
                 completion(image)
             } else {
                 print("Not able to download the image.")
                 completion(nil)
             }
-            
         }
     }
     
     /// Save image to memory cache
-    private func saveImage(_ image: UIImage, _ url: URL) {
+    private func saveImage(_ image: UIImage, _ url: URL, _ option: CacheOption) {
+        if option == .onlyDisk || option == .nothing {
+            return
+        }
+        
         let key = convertToKey(from: url) as NSString
         memoryCache.setObject(image, forKey: key)
         print("Save image to memory")
