@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DiskCache {
+class DiskCache: Cacheable {
     
     // MARK: Properties
     
@@ -25,7 +25,7 @@ class DiskCache {
     func loadImage(_ url: URL) -> UIImage? {
         if let filePath = checkPath(url),
            fileManager.fileExists(atPath: filePath) {
-            Works.displayResult(.loadFromDisk, url.lastPathComponent)
+            print("Load image from Disk")
             return UIImage(contentsOfFile: filePath)
         }
         
@@ -39,18 +39,19 @@ class DiskCache {
                 atPath: filePath,
                 contents: image.jpegData(compressionQuality: 1.0),
                 attributes: nil)
-            Works.displayResult(.saveToDisk, url.lastPathComponent)
+            print("Save image to Disk")
         }
     }
     
     /// Check if the path of the file is valid
     private func checkPath(_ url: URL) -> String? {
+        let key = convertToKey(from: url)
         let documentsURL = try? fileManager.url(
             for: .cachesDirectory,
             in: .userDomainMask,
             appropriateFor: nil,
             create: true)
-        let fileURL = documentsURL?.appendingPathComponent(url.lastPathComponent)
+        let fileURL = documentsURL?.appendingPathComponent(key)
         
         return fileURL?.path
     }

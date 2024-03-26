@@ -7,7 +7,23 @@
 
 import UIKit
 
-class ImageCache {
+protocol Cacheable {
+    func convertToKey(from url: URL) -> String
+}
+
+extension Cacheable {
+    /// Change URL to key for caching
+    func convertToKey(from url: URL) -> String{
+        let s = url.absoluteString
+        let key = stride(from: 0, to: s.count, by: 5).map {
+            s[s.index(s.startIndex, offsetBy: $0)]
+        }
+        
+        return String(key)
+    }
+}
+
+class ImageCache: Cacheable {
     
     // MARK: Properties
     
@@ -27,9 +43,11 @@ class ImageCache {
             return
         }
         
+        let key = convertToKey(from: url)
+        
         // Check memory cache
-        if let cachedImage = memoryCache.object(forKey: url.absoluteString as NSString) {
-            Works.displayResult(.loadFromMemory, url.lastPathComponent)
+        if let cachedImage = memoryCache.object(forKey: key as NSString) {
+            print("Load image from Memory")
             completion(cachedImage)
             return
         }
@@ -46,24 +64,23 @@ class ImageCache {
             if let imageData = try? Data(contentsOf: url),
                let image = UIImage(data: imageData) {
                 // Save downloaded image to memory and disk
+                print("Download the image.")
                 self.saveImage(image, url)
                 DiskCache.shared.saveImage(image, url)
-                print("Newly downloaded the image.")
                 completion(image)
             } else {
-                print("Can't download the image.")
+                print("Not able to download the image.")
                 completion(nil)
             }
             
         }
-        
-        
     }
     
     /// Save image to memory cache
-    func saveImage(_ image: UIImage, _ url: URL) {
-        memoryCache.setObject(image, forKey: url.absoluteString as NSString)
-        Works.displayResult(.saveToMemory, url.lastPathComponent)
+    private func saveImage(_ image: UIImage, _ url: URL) {
+        let key = convertToKey(from: url) as NSString
+        memoryCache.setObject(image, forKey: key)
+        print("Save image to memory")
     }
     
 }

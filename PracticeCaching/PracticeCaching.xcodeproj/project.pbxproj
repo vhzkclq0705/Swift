@@ -18,7 +18,7 @@
 		761B98E32BB2BFDA006EC0FA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B98E22BB2BFDA006EC0FA /* Model.swift */; };
 		761B98E52BB2C78D006EC0FA /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B98E42BB2C78D006EC0FA /* ImageCache.swift */; };
 		761B98E72BB2C9D5006EC0FA /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B98E62BB2C9D5006EC0FA /* DiskCache.swift */; };
-		761B98E92BB2D71F006EC0FA /* DisplayResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B98E82BB2D71F006EC0FA /* DisplayResults.swift */; };
+		761B98EB2BB2FECC006EC0FA /* CacheOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B98EA2BB2FECC006EC0FA /* CacheOption.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,7 @@
 		761B98E22BB2BFDA006EC0FA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		761B98E42BB2C78D006EC0FA /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		761B98E62BB2C9D5006EC0FA /* DiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
-		761B98E82BB2D71F006EC0FA /* DisplayResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayResults.swift; sourceTree = "<group>"; };
+		761B98EA2BB2FECC006EC0FA /* CacheOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheOption.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,10 +73,10 @@
 				761B98CE2BB2B498006EC0FA /* ViewController.swift */,
 				761B98E42BB2C78D006EC0FA /* ImageCache.swift */,
 				761B98E62BB2C9D5006EC0FA /* DiskCache.swift */,
+				761B98EA2BB2FECC006EC0FA /* CacheOption.swift */,
 				761B98E02BB2B9D6006EC0FA /* Cell.swift */,
 				761B98DE2BB2B7DE006EC0FA /* API.swift */,
 				761B98E22BB2BFDA006EC0FA /* Model.swift */,
-				761B98E82BB2D71F006EC0FA /* DisplayResults.swift */,
 				761B98D02BB2B498006EC0FA /* Main.storyboard */,
 				761B98D32BB2B49C006EC0FA /* Assets.xcassets */,
 				761B98D52BB2B49C006EC0FA /* LaunchScreen.storyboard */,
@@ -161,10 +161,10 @@
 				761B98CB2BB2B498006EC0FA /* AppDelegate.swift in Sources */,
 				761B98E32BB2BFDA006EC0FA /* Model.swift in Sources */,
 				761B98E12BB2B9D6006EC0FA /* Cell.swift in Sources */,
+				761B98EB2BB2FECC006EC0FA /* CacheOption.swift in Sources */,
 				761B98DF2BB2B7DE006EC0FA /* API.swift in Sources */,
 				761B98E52BB2C78D006EC0FA /* ImageCache.swift in Sources */,
 				761B98CD2BB2B498006EC0FA /* SceneDelegate.swift in Sources */,
-				761B98E92BB2D71F006EC0FA /* DisplayResults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
