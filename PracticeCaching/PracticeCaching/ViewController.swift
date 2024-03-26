@@ -112,7 +112,7 @@ extension ViewController : UICollectionViewDelegate,
         }
         
         let imageURL = URL(string: movies[indexPath.item].thumbnailPath)
-        ImageCache.shared.loadImage(imageURL, .onlyDisk) { image in
+        ImageCache.shared.loadImage(imageURL) { image in
             DispatchQueue.main.async {
                 cell.updateImageView(img: image)
             }
