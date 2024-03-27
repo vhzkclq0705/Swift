@@ -35,7 +35,7 @@ class ImageCache: Cacheable {
         
         // Check memory cache
         if let cachedImage = memoryCache.object(forKey: key as NSString) {
-            print("Load image from Memory")
+            print("Load image from Memory.")
             completion(cachedImage)
             return
         }
@@ -64,7 +64,7 @@ class ImageCache: Cacheable {
     }
     
     /// Save image to memory cache
-    private func saveImage(_ image: UIImage, _ url: URL, _ option: CacheOption) {
+    internal func saveImage(_ image: UIImage, _ url: URL, _ option: CacheOption) {
         if option == .onlyDisk || option == .nothing {
             return
         }

@@ -77,12 +77,10 @@ class ViewController: UIViewController {
     }
     
     private func fetchMovies(_ text: String) {
-        DispatchQueue.global().async {
-            API.searchMovies(text) { [weak self] movies in
-                self?.movies = movies
-                DispatchQueue.main.async {
-                    self?.collectionView.reloadData()
-                }
+        API.searchMovies(text) { [weak self] movies in
+            self?.movies = movies
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
             }
         }
     }

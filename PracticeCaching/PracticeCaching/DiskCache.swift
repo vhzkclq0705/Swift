@@ -25,7 +25,7 @@ class DiskCache: Cacheable {
     func loadImage(_ url: URL) -> UIImage? {
         if let filePath = checkPath(url),
            fileManager.fileExists(atPath: filePath) {
-            print("Load image from Disk")
+            print("Load image from Disk.")
             return UIImage(contentsOfFile: filePath)
         }
         
@@ -38,12 +38,17 @@ class DiskCache: Cacheable {
             return
         }
         
-        if let filePath = checkPath(url) {
-            fileManager.createFile(
+        if let filePath = checkPath(url),
+           !(fileManager.fileExists(atPath: filePath)) {
+            if fileManager.createFile(
                 atPath: filePath,
                 contents: image.jpegData(compressionQuality: 1.0),
-                attributes: nil)
-            print("Save image to Disk")
+                attributes: nil) {
+                print("Save image to Disk.")
+            } else {
+                print("Not able to save image to Disk.")
+            }
+            
         }
     }
     
