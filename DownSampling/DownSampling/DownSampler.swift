@@ -34,22 +34,31 @@ class DownSampler {
     
     /// Print information of image
     private func displayInfoOfImage(_ image: UIImage) {
-        guard let data = image.jpegData(compressionQuality: 1.0) else { return }
+        guard let data = image.jpegData(compressionQuality: 1.0) else {
+            print("Failed to create JPEG data.")
+            return
+        }
         print("Data size: \(data.count) bytes")
-        print("Image width: \(image.size.width), height: \(image.size.height)")
     }
     
     /// Downsample with UIImage
-    func downsampleWithUIImage(_ scale: CGFloat, completion: @escaping (UIImage) -> Void) {
+    func downsampleWithUIImage(
+        _ scale: CGFloat,
+        completion: @escaping (UIImage?) -> Void)
+    {
         fetchImage() { [weak self] data in
-            guard let image = UIImage(data: data) else { return }
             let start = Date()
+            guard let image = UIImage(data: data) else {
+                print("Failed to create UIImage.")
+                completion(nil)
+                return
+            }
             
             let width = image.size.width * scale
             let height = image.size.height * scale
             let size = CGSize(width: width, height: height)
             let renderer = UIGraphicsImageRenderer(size: size)
-            let resizedImage = renderer.image { context in
+            let downsampledImage = renderer.image { context in
                 image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
             }
             
@@ -58,14 +67,55 @@ class DownSampler {
             
             print("_____resizedImageWithUIRenderer_____")
             print("Time: \(end.timeIntervalSince(start))")
-            self?.displayInfoOfImage(resizedImage)
+            self?.displayInfoOfImage(downsampledImage)
             
-            completion(resizedImage)
+            completion(downsampledImage)
         }
     }
     
     /// Downsample with ImageIO
-    
-    /// Dwonsample with 
+    func downsampleWithImageIO(
+        _ size: CGSize,
+        _ scale: CGFloat,
+        completion: @escaping (UIImage?) -> Void)
+    {
+        fetchImage() { [weak self] data in
+            let start = Date()
+            guard let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else {
+                print("Failed to create image source.")
+                completion(nil)
+                return
+            }
+            
+            let options1: [NSString: Any] = [kCGImageSourceShouldCache: false]
+            guard let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, options1 as CFDictionary) as? [String: Any],
+                  let width = properties[kCGImagePropertyPixelWidth as String] as? CGFloat,
+                  let height = properties[kCGImagePropertyHeight as String] as? CGFloat else {
+                print("Failed to get image size")
+                completion(nil)
+                return
+            }
+            
+            let options2: [NSString: Any] = [
+                kCGImageSourceThumbnailMaxPixelSize: max(width, height) * scale,
+                kCGImageSourceCreateThumbnailFromImageAlways: true
+            ]
+            guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options2 as CFDictionary) else {
+                print("Failed to downsample image source.")
+                completion(nil)
+                return
+            }
+            
+            let image = UIImage(cgImage: downsampledImage)
+            let end = Date()
+            let interval = end.timeIntervalSince(start)
+            
+            print("_____resizedImageWithUIRenderer_____")
+            print("Time: \(end.timeIntervalSince(start))")
+            self?.displayInfoOfImage(image)
+            
+            completion(image)
+        }
+    }
     
 }
