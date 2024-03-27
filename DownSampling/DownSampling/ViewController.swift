@@ -18,9 +18,30 @@ class ViewController: UIViewController {
         return imageView
     }()
     
-    // MARK: - Properties
+    private lazy var fetchButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("원본 다운로드", for: .normal)
+        button.tintColor = .green
+        
+        return button
+    }()
     
-    private let url = URL(string: "https://developer.apple.com/home/images/hero-wwdc24/phase1-awre32/b-wwdc24-hero-large-phase1_2x.webp")!
+    private lazy var downsampleButton1: UIButton = {
+        let button = UIButton()
+        button.setTitle("원본 다운로드", for: .normal)
+        button.tintColor = .green
+        
+        return button
+    }()
+    
+    private lazy var downsampleButton2: UIButton = {
+        let button = UIButton()
+        button.setTitle("원본 다운로드", for: .normal)
+        button.tintColor = .green
+        
+        return button
+    }()
+    
     
     // MARK: - Life cycle
     
@@ -28,7 +49,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureLayout()
-        fetchImage()
     }
     
     // MARK: - Configure
@@ -49,25 +69,6 @@ class ViewController: UIViewController {
     
     // MARK: - Functions
     
-    private func fetchImage() {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let imageData = try? Data(contentsOf: self.url),
-                  let image = UIImage(data: imageData) else {
-                print("This URL is not available.")
-                return
-            }
-            
-            self.displayInfoOfImage(imageData, image)
-            DispatchQueue.main.async {
-                self.imageView.image = image
-            }
-        }
-    }
-    
-    private func displayInfoOfImage(_ data: Data, _ image: UIImage) {
-        print("Data size: \(data.count) bytes")
-        print("Image width: \(image.size.width), height: \(image.size.height)")
-    }
+
     
 }
