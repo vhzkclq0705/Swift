@@ -68,7 +68,7 @@ class DownSampler {
                 CGSize(width: size.width * ratio, height: size.width)
             
             let renderer = UIGraphicsImageRenderer(size: targetSize)
-            let downsampledImage = renderer.image { context in
+            let downsampledImage = renderer.image { _ in
                 image.draw(in: CGRect(origin: .zero, size: targetSize))
             }
         
