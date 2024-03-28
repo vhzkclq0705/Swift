@@ -54,8 +54,7 @@ class DownSampler {
     /// Downsample with UIGraphicsImageRenderer
     private func downsampleWithUIRenderer(_ size: CGSize, completion: @escaping (UIImage?) -> Void) {
         fetchData() { [weak self] data, start in
-            guard let self = self,
-                  let image = UIImage(data: data) else {
+            guard let image = UIImage(data: data) else {
                 print("Failed to create UIImage.")
                 completion(nil)
                 return
@@ -72,7 +71,7 @@ class DownSampler {
                 image.draw(in: CGRect(origin: .zero, size: targetSize))
             }
         
-            self.displayInfoOfImage(.uiRenderer, downsampledImage, start)
+            self?.displayInfoOfImage(.uiRenderer, downsampledImage, start)
             completion(downsampledImage)
         }
     }
@@ -80,9 +79,7 @@ class DownSampler {
     /// Downsample with ImageIO
     private func downsampleWithImageIO(_ size: CGSize, completion: @escaping (UIImage?) -> Void) {
         fetchData() { [weak self] data, start in
-            let start = Date()
-            guard let self = self,
-                  let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else {
+            guard let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else {
                 print("Failed to create image source.")
                 completion(nil)
                 return
@@ -99,7 +96,7 @@ class DownSampler {
             }
             
             let image = UIImage(cgImage: downsampledImage)
-            self.displayInfoOfImage(.imageIO, image, start)
+            self?.displayInfoOfImage(.imageIO, image, start)
             completion(image)
         }
     }
