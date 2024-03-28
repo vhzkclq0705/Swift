@@ -35,6 +35,15 @@ class ViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var clearButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .red
+        button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(didTapClearButton(_:)), for: .touchUpInside)
+        
+        return button
+    }()
+    
     private lazy var originalButton = CustomButton(fetchOption: .original)
     
     private lazy var downsampleButton1 = CustomButton(fetchOption: .uiRenderer)
@@ -46,6 +55,7 @@ class ViewController: UIViewController {
     private let downsampler = DownSampler()
     private var size: CGSize?
     private var fetchOption: FetchOptions = .original
+    private var isClear: Bool = true
     
     // MARK:  Life cycle
     
@@ -61,7 +71,7 @@ class ViewController: UIViewController {
         [originalButton, downsampleButton1, downsampleButton2]
             .forEach { stackView.addArrangedSubview($0) }
         
-        [collectionView, stackView]
+        [collectionView, clearButton, stackView]
             .forEach {
                 view.addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +90,11 @@ class ViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
+            clearButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            clearButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
+            clearButton.widthAnchor.constraint(equalToConstant: 30),
+            clearButton.heightAnchor.constraint(equalToConstant: 30),
+            
             stackView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
@@ -89,9 +104,16 @@ class ViewController: UIViewController {
     
     // MARK:  Functions
     
-    @objc func fetchImage(_ sender: CustomButton) {
+    @objc private func fetchImage(_ sender: CustomButton) {
+        isClear = false
         fetchOption = sender.getFetchOption()
-        print("fetchOption has been changed to \(fetchOption).")
+        print("FetchOption has been changed to \(fetchOption).")
+        collectionView.reloadData()
+    }
+    
+    @objc private func didTapClearButton(_ sender: UIButton) {
+        isClear = true
+        print("CollectionView has been cleared.")
         collectionView.reloadData()
     }
     
@@ -118,10 +140,14 @@ extension ViewController: UICollectionViewDelegate,
             for: indexPath) as? Cell else {
             return UICollectionViewCell()
         }
-        
-        downsampler.fetchImage(size!, fetchOption) { image in
-            DispatchQueue.main.async {
-                cell.updateImageView(image: image)
+
+        if isClear {
+            cell.updateImageView(image: nil)
+        } else {
+            downsampler.fetchImage(size!, fetchOption) { image in
+                DispatchQueue.main.async {
+                    cell.updateImageView(image: image)
+                }
             }
         }
         
