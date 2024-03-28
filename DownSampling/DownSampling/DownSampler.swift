@@ -60,12 +60,14 @@ class DownSampler {
                 return
             }
             
+            // Resize image to size maintaining original ratio
             let originalSize = image.size
             let ratio = originalSize.width / originalSize.height
             let targetSize = originalSize.width > originalSize.height ?
                 CGSize(width: size.width, height: size.width / ratio) :
                 CGSize(width: size.width * ratio, height: size.width)
             
+            // Start downsample
             let renderer = UIGraphicsImageRenderer(size: targetSize)
             let downsampledImage = renderer.image { _ in
                 image.draw(in: CGRect(origin: .zero, size: targetSize))
@@ -84,11 +86,14 @@ class DownSampler {
                 completion(nil)
                 return
             }
-
+            
+            // Resize image to size
             let options: [NSString: Any] = [
                 kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height),
-                kCGImageSourceCreateThumbnailFromImageAlways: true
+                kCGImageSourceCreateThumbnailFromImageAlways: true,
             ]
+            
+            // Start downsample
             guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary) else {
                 print("Failed to downsample image source.")
                 completion(nil)
