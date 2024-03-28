@@ -11,51 +11,41 @@ class ViewController: UIViewController {
     
     // MARK:  UI
     
-    private lazy var imageView = UIImageView()
-    
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        let flowLayout = UICollectionViewFlowLayout()
+        let width = UIScreen.main.bounds.width / 2 - 40
+        size = CGSize(width: width, height: width)
+        flowLayout.itemSize = size!
+        flowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(Cell.self, forCellWithReuseIdentifier: Cell.id)
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         return collectionView
     }()
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         
         return stackView
     }()
     
-    private lazy var originalButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Original", for: .normal)
-        button.backgroundColor = .red
-        
-        return button
-    }()
+    private lazy var originalButton = CustomButton(fetchOption: .original)
     
-    private lazy var downsampleButton1: UIButton = {
-        let button = UIButton()
-        button.setTitle("UIRenderer", for: .normal)
-        button.backgroundColor = .green
-
-        return button
-    }()
+    private lazy var downsampleButton1 = CustomButton(fetchOption: .uiRenderer)
     
-    private lazy var downsampleButton2: UIButton = {
-        let button = UIButton()
-        button.setTitle("ImageIO", for: .normal)
-        button.backgroundColor = .blue
-        
-        return button
-    }()
+    private lazy var downsampleButton2 = CustomButton(fetchOption: .imageIO)
     
     // MARK: Properties
     
     private let downsampler = DownSampler()
-    private lazy var size = imageView.frame.size
+    private var size: CGSize?
+    private var fetchOption: FetchOptions = .original
     
     // MARK:  Life cycle
     
@@ -86,22 +76,56 @@ class ViewController: UIViewController {
     private func configureLayout() {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            collectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: 30),
+            collectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
             stackView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
     
     // MARK:  Functions
     
-    @objc func fetchImage(_ sender: UIButton) {
-        
-        print(sender.titleLabel?.text)
-//        downsampler.fetchImage(size, <#T##FetchOptions#>, completion: <#T##(UIImage?) -> Void#>)
+    @objc func fetchImage(_ sender: CustomButton) {
+        fetchOption = sender.getFetchOption()
+        print("fetchOption has been changed to \(fetchOption).")
+        collectionView.reloadData()
     }
+    
+}
+
+// MARK: - CollectionView
+
+extension ViewController: UICollectionViewDelegate,
+                          UICollectionViewDataSource {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int)
+    -> Int {
+        return 20
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath)
+    -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Cell.id,
+            for: indexPath) as? Cell else {
+            return UICollectionViewCell()
+        }
+        
+        downsampler.fetchImage(size!, fetchOption) { image in
+            DispatchQueue.main.async {
+                cell.updateImageView(image: image)
+            }
+        }
+        
+        return cell
+    }
+    
 }

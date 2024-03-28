@@ -15,6 +15,7 @@
 		761B990F2BB43B92006EC0FA /* DownSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B990E2BB43B92006EC0FA /* DownSampler.swift */; };
 		761B99112BB465CF006EC0FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 761B99102BB465CF006EC0FA /* Main.storyboard */; };
 		761B99132BB54862006EC0FA /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B99122BB54862006EC0FA /* CustomButton.swift */; };
+		761B99152BB55081006EC0FA /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B99142BB55081006EC0FA /* Cell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		761B990E2BB43B92006EC0FA /* DownSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownSampler.swift; sourceTree = "<group>"; };
 		761B99102BB465CF006EC0FA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		761B99122BB54862006EC0FA /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		761B99142BB55081006EC0FA /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				761B98FA2BB43329006EC0FA /* AppDelegate.swift */,
 				761B98FC2BB43329006EC0FA /* SceneDelegate.swift */,
 				761B98FE2BB43329006EC0FA /* ViewController.swift */,
+				761B99142BB55081006EC0FA /* Cell.swift */,
 				761B990E2BB43B92006EC0FA /* DownSampler.swift */,
 				761B99122BB54862006EC0FA /* CustomButton.swift */,
 				761B99032BB43332006EC0FA /* Assets.xcassets */,
@@ -149,6 +152,7 @@
 				761B98FB2BB43329006EC0FA /* AppDelegate.swift in Sources */,
 				761B98FD2BB43329006EC0FA /* SceneDelegate.swift in Sources */,
 				761B99132BB54862006EC0FA /* CustomButton.swift in Sources */,
+				761B99152BB55081006EC0FA /* Cell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
