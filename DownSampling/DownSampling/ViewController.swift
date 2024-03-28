@@ -13,9 +13,24 @@ class ViewController: UIViewController {
     
     private lazy var imageView = UIImageView()
     
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        
+        return collectionView
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        
+        return stackView
+    }()
+    
     private lazy var originalButton: UIButton = {
         let button = UIButton()
-        button.setTitle("원본", for: .normal)
+        button.setTitle("Original", for: .normal)
         button.backgroundColor = .red
         
         return button
@@ -23,7 +38,7 @@ class ViewController: UIViewController {
     
     private lazy var downsampleButton1: UIButton = {
         let button = UIButton()
-        button.setTitle("UIImage", for: .normal)
+        button.setTitle("UIRenderer", for: .normal)
         button.backgroundColor = .green
 
         return button
@@ -53,7 +68,10 @@ class ViewController: UIViewController {
     // MARK:  Configure
     
     private func configureUI() {
-        [imageView, originalButton, downsampleButton1, downsampleButton2]
+        [originalButton, downsampleButton1, downsampleButton2]
+            .forEach { stackView.addArrangedSubview($0) }
+        
+        [collectionView, stackView]
             .forEach {
                 view.addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -61,58 +79,29 @@ class ViewController: UIViewController {
         
         [originalButton, downsampleButton1, downsampleButton2]
             .forEach {
-                $0.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
+                $0.addTarget(self, action: #selector(fetchImage(_:)), for: .touchUpInside)
             }
     }
     
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            imageView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
-            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: 30),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
-            originalButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            originalButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            originalButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            originalButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            downsampleButton1.topAnchor.constraint(equalTo: originalButton.bottomAnchor, constant: 20),
-            downsampleButton1.leadingAnchor.constraint(equalTo: originalButton.leadingAnchor),
-            downsampleButton1.trailingAnchor.constraint(equalTo: originalButton.trailingAnchor),
-            downsampleButton1.heightAnchor.constraint(equalToConstant: 50),
-            
-            downsampleButton2.topAnchor.constraint(equalTo: downsampleButton1.bottomAnchor, constant: 20),
-            downsampleButton2.leadingAnchor.constraint(equalTo: originalButton.leadingAnchor),
-            downsampleButton2.trailingAnchor.constraint(equalTo: originalButton.trailingAnchor),
-            downsampleButton2.heightAnchor.constraint(equalToConstant: 50),
+            stackView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
+            stackView.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
     
     // MARK:  Functions
     
-    @objc func didTapButton(_ sender: UIButton) {
-        switch sender {
-        case originalButton:
-            downsampler.fetchOriginalImage() { [weak self] image in
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                }
-            }
-        case downsampleButton1:
-            downsampler.downsampleWithUIRenderer(size) { [weak self] image in
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                }
-            }
-        case downsampleButton2:
-            downsampler.downsampleWithImageIO(size) { [weak self] image in
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                }
-            }
-        default:
-            return
-        }
+    @objc func fetchImage(_ sender: UIButton) {
+        
+        print(sender.titleLabel?.text)
+//        downsampler.fetchImage(size, <#T##FetchOptions#>, completion: <#T##(UIImage?) -> Void#>)
     }
 }

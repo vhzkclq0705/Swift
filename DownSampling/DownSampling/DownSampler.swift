@@ -7,6 +7,12 @@
 
 import UIKit
 
+enum FetchOptions: String {
+    case original = "OriginalImage"
+    case uiRenderer = "DownsampledImageWithUIRenderer"
+    case imageIO = "DownsampledImageWithImageIO"
+}
+
 class DownSampler {
     
     // MARK: Properties
@@ -19,51 +25,35 @@ class DownSampler {
     
     // MARK: Functions
     
-    /// Fetch Image
-    private func fetchImage(completion: @escaping (Data) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Failed to download image.")
-                return
-            }
-            
-            completion(data)
-        }.resume()
-    }
-    
-    /// Print information of image
-    private func displayInfoOfImage(_ image: UIImage) {
-        guard let data = image.jpegData(compressionQuality: 1.0) else {
-            print("Failed to create JPEG data.")
-            return
+    /// Fetch image with option
+    func fetchImage(_ size: CGSize, _ option: FetchOptions, completion: @escaping (UIImage?) -> Void) {
+        switch option {
+        case .original:
+            fetchOriginalImage(completion: completion)
+        case .uiRenderer:
+            downsampleWithUIRenderer(size, completion: completion)
+        case .imageIO:
+            downsampleWithImageIO(size, completion: completion)
         }
-        print("Data size: \(data.count) bytes")
-        print("Image size \(image.size)")
     }
     
     /// Fetch original image
-    func fetchOriginalImage(completion: @escaping (UIImage?) -> Void) {
-        fetchImage() { [weak self] data in
-            let start = Date()
+    private func fetchOriginalImage(completion: @escaping (UIImage?) -> Void) {
+        fetchData() { [weak self] data, start in
             guard let originalImage = UIImage(data: data) else {
                 print("Failed to create UIImage.")
                 completion(nil)
                 return
             }
             
-            let end = Date()
-            print("_____downloadOriginalImage_____")
-            print("Time: \(end.timeIntervalSince(start))")
-            self?.displayInfoOfImage(originalImage)
-            
+            self?.displayInfoOfImage(.original, originalImage, start)
             completion(originalImage)
         }
     }
     
     /// Downsample with UIGraphicsImageRenderer
-    func downsampleWithUIRenderer(_ size: CGSize, completion: @escaping (UIImage?) -> Void) {
-        fetchImage() { [weak self] data in
-            let start = Date()
+    private func downsampleWithUIRenderer(_ size: CGSize, completion: @escaping (UIImage?) -> Void) {
+        fetchData() { [weak self] data, start in
             guard let self = self,
                   let image = UIImage(data: data) else {
                 print("Failed to create UIImage.")
@@ -73,29 +63,23 @@ class DownSampler {
             
             let originalSize = image.size
             let ratio = originalSize.width / originalSize.height
-            let width = size.width
-            let height = width / ratio
             let targetSize = originalSize.width > originalSize.height ?
-                CGSize(width: width, height: height) :
-                CGSize(width: width * ratio, height: width)
+                CGSize(width: size.width, height: size.width / ratio) :
+                CGSize(width: size.width * ratio, height: size.width)
             
             let renderer = UIGraphicsImageRenderer(size: targetSize)
             let downsampledImage = renderer.image { context in
                 image.draw(in: CGRect(origin: .zero, size: targetSize))
             }
-            
-            let end = Date()
-            print("_____downsampledImageWithUIRenderer_____")
-            print("Time: \(end.timeIntervalSince(start))")
-            self.displayInfoOfImage(downsampledImage)
-            
+        
+            self.displayInfoOfImage(.uiRenderer, downsampledImage, start)
             completion(downsampledImage)
         }
     }
     
     /// Downsample with ImageIO
-    func downsampleWithImageIO(_ size: CGSize, completion: @escaping (UIImage?) -> Void) {
-        fetchImage() { [weak self] data in
+    private func downsampleWithImageIO(_ size: CGSize, completion: @escaping (UIImage?) -> Void) {
+        fetchData() { [weak self] data, start in
             let start = Date()
             guard let self = self,
                   let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else {
@@ -115,13 +99,35 @@ class DownSampler {
             }
             
             let image = UIImage(cgImage: downsampledImage)
-            let end = Date()
-            print("_____downsampledImageWithImageIO_____")
-            print("Time: \(end.timeIntervalSince(start))")
-            self.displayInfoOfImage(image)
-            
+            self.displayInfoOfImage(.imageIO, image, start)
             completion(image)
         }
+    }
+    
+    /// Fetch data
+    private func fetchData(completion: @escaping (Data, Date) -> Void) {
+        let start = Date()
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Failed to download image.")
+                return
+            }
+            
+            completion(data, start)
+        }.resume()
+    }
+    
+    /// Print image information
+    private func displayInfoOfImage(_ option: FetchOptions, _ image: UIImage, _ start: Date) {
+        guard let data = image.jpegData(compressionQuality: 1.0) else {
+            print("Failed to create JPEG data.")
+            return
+        }
+        
+        print("____\(option.rawValue)____")
+        print("Time: \(Date().timeIntervalSince(start))")
+        print("Data size: \(data.count) bytes")
+        print("Image size \(image.size)")
     }
     
 }
