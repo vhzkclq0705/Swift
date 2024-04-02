@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(true)
         
         [view, firstView, secondView].forEach {
-            displayFrame($0)
+            displayInfoOfView($0)
         }
     }
     
@@ -144,7 +144,7 @@ class ViewController: UIViewController {
         return button
     }
     
-    private func displayFrame(_ sender: UIView) {
+    private func displayInfoOfView(_ sender: UIView) {
         let fOrigin = sender.frame.origin
         let fSize = sender.frame.size
         let bOrigin = sender.bounds.origin
@@ -190,12 +190,9 @@ class ViewController: UIViewController {
             
             
             print("\(self.selectedView.text) has been rotated.")
-            self.displayFrame(self.firstView)
-            self.displayFrame(self.secondView)
+            self.displayInfoOfView(self.firstView)
+            self.displayInfoOfView(self.secondView)
         }
-        
-        
-        
     }
     
 }
