@@ -14,3 +14,8 @@ Swift에서 제공하는 다양한 기능을 구현해보는 레포지토리 입
 - UIGraphicsImageRenderer과 Image I/O를 이용한 이미지 다운샘플링 비교
 - [Code](https://github.com/vhzkclq0705/Swift/tree/main/DownSampling)
 - [Velog](https://velog.io/@o_joon_/Swift-Image-DownSampling)
+
+### Frame vs Bounds
+- UIView의 기본 속성인 frame과 bounds
+- [Code](https://github.com/vhzkclq0705/Swift/tree/main/FrameVSBounds)
+- [Velog](https://velog.io/@o_joon_/Swift-Frame-VS-Bounds)
