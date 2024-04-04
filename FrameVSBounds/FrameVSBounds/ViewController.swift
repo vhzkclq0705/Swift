@@ -24,6 +24,13 @@ class ViewController: UIViewController {
     private lazy var rotateCWButton = makeButton(isClockWise: true)
     private lazy var rotateCCWButton = makeButton(isClockWise: false)
     
+    private lazy var nextButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "arrow.right"), for: .normal)
+        
+        return button
+    }()
+    
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "view"
@@ -64,6 +71,7 @@ class ViewController: UIViewController {
             secondView,
             rotateCCWButton,
             rotateCWButton,
+            nextButton,
             label
         ].forEach {
             addUI(superView: view, subView: $0)
@@ -93,6 +101,9 @@ class ViewController: UIViewController {
             
             rotateCCWButton.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 100),
             rotateCCWButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: -70),
+            
+            nextButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 15),
+            nextButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -15),
             
             label.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor),
             label.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
@@ -188,11 +199,14 @@ class ViewController: UIViewController {
             willRotateView.center.x = round(willRotateView.center.x * 10) / 10
             willRotateView.center.y = round(willRotateView.center.y * 10) / 10
             
-            
             print("\(self.selectedView.text) has been rotated.")
             self.displayInfoOfView(self.firstView)
             self.displayInfoOfView(self.secondView)
         }
+    }
+    
+    @objc private func moveToSecondVC() {
+        
     }
     
 }
