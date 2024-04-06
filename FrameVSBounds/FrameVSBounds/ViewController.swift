@@ -206,7 +206,8 @@ class ViewController: UIViewController {
     }
     
     @objc private func moveToSecondVC() {
-        
+        let vc = SecondViewController()
+        present(vc, animated: true)
     }
     
 }
