@@ -208,6 +208,8 @@ class ViewController: UIViewController {
     
     @objc private func moveToSecondVC(_ sender: UIButton) {
         let vc = SecondViewController()
+        vc.modalPresentationStyle = .fullScreen
+        
         present(vc, animated: true)
     }
     
