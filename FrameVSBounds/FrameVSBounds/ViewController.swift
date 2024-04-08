@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.right"), for: .normal)
+        button.addTarget(self, action: #selector(moveToSecondVC(_:)), for: .touchUpInside)
         
         return button
     }()
@@ -205,7 +206,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc private func moveToSecondVC() {
+    @objc private func moveToSecondVC(_ sender: UIButton) {
         let vc = SecondViewController()
         present(vc, animated: true)
     }

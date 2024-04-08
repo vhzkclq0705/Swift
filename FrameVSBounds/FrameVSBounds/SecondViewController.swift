@@ -20,24 +20,40 @@ class SecondViewController: UIViewController {
     
     private lazy var firstFrameXLabel = makeLable("FirstView_Frame_X")
     private lazy var firstFrameYLabel = makeLable("FirstView_Frame_Y")
-    private lazy var firstOriginXLabel = makeLable("FirstView_Origin_X")
-    private lazy var firstOriginYLabel = makeLable("FirstView_Origin_Y")
+    private lazy var firstBoundsXLabel = makeLable("FirstView_Bounds_X")
+    private lazy var firstBoundsYLabel = makeLable("FirstView_Bounds_Y")
     
     private lazy var firstFrameXSlider = makeSlider(.firstView)
     private lazy var firstFrameYSlider = makeSlider(.firstView)
-    private lazy var firstOriginXSlider = makeSlider(.firstView)
-    private lazy var firstOriginYSlider = makeSlider(.firstView)
+    private lazy var firstBoundsXSlider = makeSlider(.firstView)
+    private lazy var firstBoundsYSlider = makeSlider(.firstView)
     
     private lazy var secondFrameXLabel = makeLable("SecondView_Frame_X")
     private lazy var secondFrameYLabel = makeLable("SecondView_Frame_Y")
-    private lazy var secondOriginXLabel = makeLable("SecondView_Origin_X")
-    private lazy var secondOriginYLabel = makeLable("SecondView_Origin_Y")
+    private lazy var secondBoundsXLabel = makeLable("SecondView_Bounds_X")
+    private lazy var secondBoundsYLabel = makeLable("SecondView_Bounds_Y")
     
     private lazy var secondFrameXSlider = makeSlider(.secondView)
     private lazy var secondFrameYSlider = makeSlider(.secondView)
-    private lazy var secondOriginXSlider = makeSlider(.secondView)
-    private lazy var secondOriginYSlider = makeSlider(.secondView)
+    private lazy var secondBoundsXSlider = makeSlider(.secondView)
+    private lazy var secondBoundsYSlider = makeSlider(.secondView)
     
+    private lazy var resetButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "arrow.uturn.backward.circle.fill"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(resetAll(_:)), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    
+    // MARK: Properties
+    
+    private lazy var firstViewFrameX: CGFloat = 0
+    private lazy var firstViewFrameY: CGFloat = 0
+    private lazy var secondViewFrameX: CGFloat = 0
+    private lazy var secondViewFrameY: CGFloat = 0
     
     // MARK: Life cycle
     
@@ -49,32 +65,51 @@ class SecondViewController: UIViewController {
         configureLayout()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        firstViewFrameX = firstView.frame.origin.x
+        firstViewFrameY = firstView.frame.origin.y
+        secondViewFrameX = secondView.frame.origin.x
+        secondViewFrameY = secondView.frame.origin.y
+    }
+    
     // MARK: Configure
     
     private func configureUI() {
         [
             firstView,
-            secondView,
             firstFrameXLabel,
             firstFrameYLabel,
-            firstOriginXLabel,
-            firstOriginYLabel,
+            firstBoundsXLabel,
+            firstBoundsYLabel,
             firstFrameXSlider,
             firstFrameYSlider,
-            firstOriginXSlider,
-            firstOriginYSlider,
+            firstBoundsXSlider,
+            firstBoundsYSlider,
             secondFrameXLabel,
             secondFrameYLabel,
-            secondOriginXLabel,
-            secondOriginYLabel,
+            secondBoundsXLabel,
+            secondBoundsYLabel,
             secondFrameXSlider,
             secondFrameYSlider,
-            secondOriginXSlider,
-            secondOriginYSlider
+            secondBoundsXSlider,
+            secondBoundsYSlider,
+            resetButton
         ].forEach {
-            view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
+            addUI(superView: view, subView: $0)
         }
+        
+        addUI(superView: firstView, subView: secondView)
+        
+        firstFrameXSlider.addTarget(self, action: #selector(adjustFirstViewFrameX(_:)), for: .valueChanged)
+        firstFrameYSlider.addTarget(self, action: #selector(adjustFirstViewFrameY(_:)), for: .valueChanged)
+        firstBoundsXSlider.addTarget(self, action: #selector(adjustFirstViewBoundsX(_:)), for: .valueChanged)
+        firstBoundsYSlider.addTarget(self, action: #selector(adjustFirstViewBoundsY(_:)), for: .valueChanged)
+        secondFrameXSlider.addTarget(self, action: #selector(adjustSecondViewFrameX(_:)), for: .valueChanged)
+        secondFrameYSlider.addTarget(self, action: #selector(adjustSecondViewFrameY(_:)), for: .valueChanged)
+        secondBoundsXSlider.addTarget(self, action: #selector(adjustSecondViewBoundsX(_:)), for: .valueChanged)
+        secondBoundsYSlider.addTarget(self, action: #selector(adjustSecondViewBoundsY(_:)), for: .valueChanged)
     }
     
     private func configureLayout() {
@@ -105,19 +140,19 @@ class SecondViewController: UIViewController {
             firstFrameYSlider.centerXAnchor.constraint(equalTo: firstFrameYLabel.centerXAnchor),
             firstFrameYSlider.widthAnchor.constraint(equalTo: firstFrameYLabel.widthAnchor),
             
-            firstOriginXLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 100),
-            firstOriginXLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: -100),
+            firstBoundsXLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 100),
+            firstBoundsXLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: -100),
             
-            firstOriginYLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 100),
-            firstOriginYLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 100),
+            firstBoundsYLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 100),
+            firstBoundsYLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 100),
             
-            firstOriginXSlider.topAnchor.constraint(equalTo: firstOriginXLabel.topAnchor, constant: 10),
-            firstOriginXSlider.centerXAnchor.constraint(equalTo: firstFrameXLabel.centerXAnchor),
-            firstOriginXSlider.widthAnchor.constraint(equalTo: firstOriginXLabel.widthAnchor),
+            firstBoundsXSlider.topAnchor.constraint(equalTo: firstBoundsXLabel.topAnchor, constant: 10),
+            firstBoundsXSlider.centerXAnchor.constraint(equalTo: firstFrameXLabel.centerXAnchor),
+            firstBoundsXSlider.widthAnchor.constraint(equalTo: firstBoundsXLabel.widthAnchor),
             
-            firstOriginYSlider.topAnchor.constraint(equalTo: firstOriginYLabel.topAnchor, constant: 10),
-            firstOriginYSlider.centerXAnchor.constraint(equalTo: firstFrameYLabel.centerXAnchor),
-            firstOriginYSlider.widthAnchor.constraint(equalTo: firstOriginYLabel.widthAnchor),
+            firstBoundsYSlider.topAnchor.constraint(equalTo: firstBoundsYLabel.topAnchor, constant: 10),
+            firstBoundsYSlider.centerXAnchor.constraint(equalTo: firstFrameYLabel.centerXAnchor),
+            firstBoundsYSlider.widthAnchor.constraint(equalTo: firstBoundsYLabel.widthAnchor),
             
             secondFrameXLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 150),
             secondFrameXLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: -100),
@@ -133,23 +168,31 @@ class SecondViewController: UIViewController {
             secondFrameYSlider.centerXAnchor.constraint(equalTo: firstFrameYLabel.centerXAnchor),
             secondFrameYSlider.widthAnchor.constraint(equalTo: firstFrameYLabel.widthAnchor),
             
-            secondOriginXLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 200),
-            secondOriginXLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: -100),
+            secondBoundsXLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 200),
+            secondBoundsXLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: -100),
             
-            secondOriginYLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 200),
-            secondOriginYLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 100),
+            secondBoundsYLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor, constant: 200),
+            secondBoundsYLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor, constant: 100),
             
-            secondOriginXSlider.topAnchor.constraint(equalTo: secondOriginXLabel.topAnchor, constant: 10),
-            secondOriginXSlider.centerXAnchor.constraint(equalTo: firstFrameXLabel.centerXAnchor),
-            secondOriginXSlider.widthAnchor.constraint(equalTo: firstOriginXLabel.widthAnchor),
+            secondBoundsXSlider.topAnchor.constraint(equalTo: secondBoundsXLabel.topAnchor, constant: 10),
+            secondBoundsXSlider.centerXAnchor.constraint(equalTo: firstFrameXLabel.centerXAnchor),
+            secondBoundsXSlider.widthAnchor.constraint(equalTo: firstBoundsXLabel.widthAnchor),
             
-            secondOriginYSlider.topAnchor.constraint(equalTo: secondOriginYLabel.topAnchor, constant: 10),
-            secondOriginYSlider.centerXAnchor.constraint(equalTo: secondFrameYLabel.centerXAnchor),
-            secondOriginYSlider.widthAnchor.constraint(equalTo: firstOriginYLabel.widthAnchor),
+            secondBoundsYSlider.topAnchor.constraint(equalTo: secondBoundsYLabel.topAnchor, constant: 10),
+            secondBoundsYSlider.centerXAnchor.constraint(equalTo: secondFrameYLabel.centerXAnchor),
+            secondBoundsYSlider.widthAnchor.constraint(equalTo: firstBoundsYLabel.widthAnchor),
+            
+            resetButton.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor),
+            resetButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
         ])
     }
     
     // MARK: Functions
+    
+    private func addUI(superView: UIView, subView: UIView) {
+        superView.addSubview(subView)
+        subView.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private func makeView(_ selectedView: SelectedView) -> UIView {
         let view = UIView()
@@ -174,6 +217,59 @@ class SecondViewController: UIViewController {
         label.font = .systemFont(ofSize: 15, weight: .bold)
         
         return label
+    }
+    
+    // MARK: Actions
+    
+    @objc private func resetAll(_ sender: UIButton) {
+        firstView.frame.origin = CGPoint(x: firstViewFrameX, y: firstViewFrameY)
+        firstView.bounds.origin = CGPoint(x: 0, y: 0)
+        secondView.frame.origin = CGPoint(x: secondViewFrameX, y: secondViewFrameY)
+        secondView.bounds.origin = CGPoint(x: 0, y: 0)
+        
+        [
+            firstFrameXSlider,
+            firstFrameYSlider,
+            firstBoundsXSlider,
+            firstBoundsYSlider,
+            secondFrameXSlider,
+            secondFrameYSlider,
+            secondBoundsXSlider,
+            secondBoundsYSlider
+        ]
+            .forEach { $0.value = 0 }
+    }
+    
+    @objc private func adjustFirstViewFrameX(_ sender: UISlider) {
+        firstView.frame.origin.x = firstViewFrameX + CGFloat(sender.value)
+    }
+    
+    @objc private func adjustFirstViewFrameY(_ sender: UISlider) {
+        firstView.frame.origin.y = firstViewFrameY + CGFloat(sender.value)
+    }
+    
+    @objc private func adjustFirstViewBoundsX(_ sender: UISlider) {
+        firstView.bounds.origin.x = CGFloat(sender.value)
+    }
+    
+    @objc private func adjustFirstViewBoundsY(_ sender: UISlider) {
+        firstView.bounds.origin.y = CGFloat(sender.value)
+    }
+    
+    @objc private func adjustSecondViewFrameX(_ sender: UISlider) {
+        secondView.frame.origin.x = secondViewFrameX + CGFloat(sender.value)
+    }
+    
+    @objc private func adjustSecondViewFrameY(_ sender: UISlider) {
+        secondView.frame.origin.y = secondViewFrameY + CGFloat(sender.value)
+    }
+    
+    @objc private func adjustSecondViewBoundsX(_ sender: UISlider) {
+        secondView.bounds.origin.x = CGFloat(sender.value)
+    }
+    
+    @objc private func adjustSecondViewBoundsY(_ sender: UISlider) {
+        secondView.bounds.origin.y = CGFloat(sender.value)
     }
     
 }
