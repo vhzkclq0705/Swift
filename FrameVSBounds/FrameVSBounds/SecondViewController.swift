@@ -7,8 +7,16 @@
 
 import UIKit
 
+#Preview {
+    SecondViewController()
+}
+
 class SecondViewController: UIViewController {
     
+    // MARK: UI
+    
+    private lazy var firstView = makeView(.red)
+    private lazy var secondView = makeView(.yellow)
     
     
     
@@ -25,11 +33,33 @@ class SecondViewController: UIViewController {
     // MARK: Configure
     
     private func configureUI() {
-        // override 후, UI 컴포넌트들 addSubView
+        [firstView, secondView].forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func configureLayout() {
-        // override 후, UI 컴포넌트들 레이아웃 추가
+        NSLayoutConstraint.activate([
+            firstView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            firstView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            firstView.widthAnchor.constraint(equalToConstant: 300),
+            firstView.heightAnchor.constraint(equalToConstant: 300),
+            
+            secondView.topAnchor.constraint(equalTo: firstView.topAnchor, constant: 30),
+            secondView.leadingAnchor.constraint(equalTo: firstView.leadingAnchor, constant: 30),
+            secondView.widthAnchor.constraint(equalToConstant: 150),
+            secondView.heightAnchor.constraint(equalToConstant: 150),
+        ])
+    }
+    
+    // MARK: Functions
+    
+    private func makeView(_ color: UIColor) -> UIView {
+        let view = UIView()
+        view.backgroundColor = color
+        
+        return view
     }
     
 }
