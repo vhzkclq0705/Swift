@@ -25,6 +25,7 @@
 		76A29B032C20284F0009A6CD /* 두 수의 연산값 비교하기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29B022C20284F0009A6CD /* 두 수의 연산값 비교하기.swift */; };
 		76A29B052C2028E80009A6CD /* n의 배수.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29B042C2028E80009A6CD /* n의 배수.swift */; };
 		76A29B072C202AE40009A6CD /* 공배수.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29B062C202AE40009A6CD /* 공배수.swift */; };
+		76A29B092C202C000009A6CD /* 홀짝에 따라 다른 값 반환하기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29B082C202C000009A6CD /* 홀짝에 따라 다른 값 반환하기.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +60,7 @@
 		76A29B022C20284F0009A6CD /* 두 수의 연산값 비교하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "두 수의 연산값 비교하기.swift"; sourceTree = "<group>"; };
 		76A29B042C2028E80009A6CD /* n의 배수.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "n의 배수.swift"; sourceTree = "<group>"; };
 		76A29B062C202AE40009A6CD /* 공배수.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "공배수.swift"; sourceTree = "<group>"; };
+		76A29B082C202C000009A6CD /* 홀짝에 따라 다른 값 반환하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "홀짝에 따라 다른 값 반환하기.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				76A29B022C20284F0009A6CD /* 두 수의 연산값 비교하기.swift */,
 				76A29B042C2028E80009A6CD /* n의 배수.swift */,
 				76A29B062C202AE40009A6CD /* 공배수.swift */,
+				76A29B082C202C000009A6CD /* 홀짝에 따라 다른 값 반환하기.swift */,
 			);
 			path = LV.0;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				76A29B052C2028E80009A6CD /* n의 배수.swift in Sources */,
 				76A29AF12C2013800009A6CD /* 덧셈식 출력하기.swift in Sources */,
 				76A29B032C20284F0009A6CD /* 두 수의 연산값 비교하기.swift in Sources */,
+				76A29B092C202C000009A6CD /* 홀짝에 따라 다른 값 반환하기.swift in Sources */,
 				76A29ADE2C2006EF0009A6CD /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
