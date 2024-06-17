@@ -24,6 +24,7 @@
 		76A29B012C2026540009A6CD /* 더크게합치기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29B002C2026540009A6CD /* 더크게합치기.swift */; };
 		76A29B032C20284F0009A6CD /* 두 수의 연산값 비교하기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29B022C20284F0009A6CD /* 두 수의 연산값 비교하기.swift */; };
 		76A29B052C2028E80009A6CD /* n의 배수.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29B042C2028E80009A6CD /* n의 배수.swift */; };
+		76A29B072C202AE40009A6CD /* 공배수.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29B062C202AE40009A6CD /* 공배수.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +58,7 @@
 		76A29B002C2026540009A6CD /* 더크게합치기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "더크게합치기.swift"; sourceTree = "<group>"; };
 		76A29B022C20284F0009A6CD /* 두 수의 연산값 비교하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "두 수의 연산값 비교하기.swift"; sourceTree = "<group>"; };
 		76A29B042C2028E80009A6CD /* n의 배수.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "n의 배수.swift"; sourceTree = "<group>"; };
+		76A29B062C202AE40009A6CD /* 공배수.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "공배수.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				76A29B002C2026540009A6CD /* 더크게합치기.swift */,
 				76A29B022C20284F0009A6CD /* 두 수의 연산값 비교하기.swift */,
 				76A29B042C2028E80009A6CD /* n의 배수.swift */,
+				76A29B062C202AE40009A6CD /* 공배수.swift */,
 			);
 			path = LV.0;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				76A29AF32C2014260009A6CD /* 문자열붙여서출력하기.swift in Sources */,
 				76A29AEF2C2011850009A6CD /* 특수문자 출력하기.swift in Sources */,
 				76A29AF52C20153C0009A6CD /* 문자열 돌리기.swift in Sources */,
+				76A29B072C202AE40009A6CD /* 공배수.swift in Sources */,
 				76A29AFF2C2021D40009A6CD /* 문자열 곱하기.swift in Sources */,
 				76A29B012C2026540009A6CD /* 더크게합치기.swift in Sources */,
 				76A29AFB2C201EC50009A6CD /* 문자열 섞기.swift in Sources */,
