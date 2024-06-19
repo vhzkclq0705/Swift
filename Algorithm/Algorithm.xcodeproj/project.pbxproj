@@ -37,6 +37,7 @@
 		76C4657B2C22B614005C0D38 /* 수 조작하기 1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C4657A2C22B614005C0D38 /* 수 조작하기 1.swift */; };
 		76C4657D2C22B86C005C0D38 /* 수 조작하기 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C4657C2C22B86C005C0D38 /* 수 조작하기 2.swift */; };
 		76C4657F2C22BDDE005C0D38 /* 수열과 구간 쿼리 3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C4657E2C22BDDE005C0D38 /* 수열과 구간 쿼리 3.swift */; };
+		76C465812C22D5CA005C0D38 /* 수열과 구간 쿼리 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C465802C22D5CA005C0D38 /* 수열과 구간 쿼리 2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -83,6 +84,7 @@
 		76C4657A2C22B614005C0D38 /* 수 조작하기 1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "수 조작하기 1.swift"; sourceTree = "<group>"; };
 		76C4657C2C22B86C005C0D38 /* 수 조작하기 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "수 조작하기 2.swift"; sourceTree = "<group>"; };
 		76C4657E2C22BDDE005C0D38 /* 수열과 구간 쿼리 3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "수열과 구간 쿼리 3.swift"; sourceTree = "<group>"; };
+		76C465802C22D5CA005C0D38 /* 수열과 구간 쿼리 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "수열과 구간 쿼리 2.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 				76C4657A2C22B614005C0D38 /* 수 조작하기 1.swift */,
 				76C4657C2C22B86C005C0D38 /* 수 조작하기 2.swift */,
 				76C4657E2C22BDDE005C0D38 /* 수열과 구간 쿼리 3.swift */,
+				76C465802C22D5CA005C0D38 /* 수열과 구간 쿼리 2.swift */,
 			);
 			path = LV.0;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				76A29AF52C20153C0009A6CD /* 문자열 돌리기.swift in Sources */,
 				76C465752C22AB0C005C0D38 /* 원소들의 곱과 합.swift in Sources */,
 				76C465772C22AE59005C0D38 /* 이어 붙인 수.swift in Sources */,
+				76C465812C22D5CA005C0D38 /* 수열과 구간 쿼리 2.swift in Sources */,
 				76C4656B2C215C59005C0D38 /* 조건 문자열.swift in Sources */,
 				76A29B072C202AE40009A6CD /* 공배수.swift in Sources */,
 				76A29AFF2C2021D40009A6CD /* 문자열 곱하기.swift in Sources */,
