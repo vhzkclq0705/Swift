@@ -40,6 +40,7 @@
 		76C465812C22D5CA005C0D38 /* 수열과 구간 쿼리 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C465802C22D5CA005C0D38 /* 수열과 구간 쿼리 2.swift */; };
 		76C465832C22DEE3005C0D38 /* 수열과 구간 쿼리 4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C465822C22DEE3005C0D38 /* 수열과 구간 쿼리 4.swift */; };
 		76C465852C22DFCA005C0D38 /* 배열 만들기 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C465842C22DFCA005C0D38 /* 배열 만들기 2.swift */; };
+		76C465882C22FF28005C0D38 /* 30804.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C465872C22FF28005C0D38 /* 30804.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,6 +90,7 @@
 		76C465802C22D5CA005C0D38 /* 수열과 구간 쿼리 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "수열과 구간 쿼리 2.swift"; sourceTree = "<group>"; };
 		76C465822C22DEE3005C0D38 /* 수열과 구간 쿼리 4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "수열과 구간 쿼리 4.swift"; sourceTree = "<group>"; };
 		76C465842C22DFCA005C0D38 /* 배열 만들기 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "배열 만들기 2.swift"; sourceTree = "<group>"; };
+		76C465872C22FF28005C0D38 /* 30804.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 30804.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		76A29AD12C2006EF0009A6CD = {
 			isa = PBXGroup;
 			children = (
+				76C465862C22FF11005C0D38 /* BaekJoon */,
 				76A29AE42C2006FC0009A6CD /* Programmers */,
 				76A29ADC2C2006EF0009A6CD /* Algorithm */,
 				76A29ADB2C2006EF0009A6CD /* Products */,
@@ -172,6 +175,14 @@
 				76C465822C22DEE3005C0D38 /* 수열과 구간 쿼리 4.swift */,
 			);
 			path = LV.0;
+			sourceTree = "<group>";
+		};
+		76C465862C22FF11005C0D38 /* BaekJoon */ = {
+			isa = PBXGroup;
+			children = (
+				76C465872C22FF28005C0D38 /* 30804.swift */,
+			);
+			path = BaekJoon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +276,7 @@
 				76C465832C22DEE3005C0D38 /* 수열과 구간 쿼리 4.swift in Sources */,
 				76A29B092C202C000009A6CD /* 홀짝에 따라 다른 값 반환하기.swift in Sources */,
 				76A29ADE2C2006EF0009A6CD /* main.swift in Sources */,
+				76C465882C22FF28005C0D38 /* 30804.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

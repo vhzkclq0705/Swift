@@ -6,5 +6,3 @@
 //
 
 import Foundation
-
-특수문자출력하기()
