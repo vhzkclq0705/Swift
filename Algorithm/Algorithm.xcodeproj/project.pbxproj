@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76314F362C241903007295DD /* 카운트 업.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76314F352C241903007295DD /* 카운트 업.swift */; };
 		76A29ADE2C2006EF0009A6CD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29ADD2C2006EF0009A6CD /* main.swift */; };
 		76A29AE72C2007210009A6CD /* 문자열 출력하기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29AE62C2007210009A6CD /* 문자열 출력하기.swift */; };
 		76A29AE92C200A990009A6CD /* a와 b 출력하기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A29AE82C200A990009A6CD /* a와 b 출력하기.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		76314F352C241903007295DD /* 카운트 업.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "카운트 업.swift"; sourceTree = "<group>"; };
 		76A29ADA2C2006EF0009A6CD /* Algorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Algorithm; sourceTree = BUILT_PRODUCTS_DIR; };
 		76A29ADD2C2006EF0009A6CD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		76A29AE62C2007210009A6CD /* 문자열 출력하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "문자열 출력하기.swift"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				76C4657E2C22BDDE005C0D38 /* 수열과 구간 쿼리 3.swift */,
 				76C465802C22D5CA005C0D38 /* 수열과 구간 쿼리 2.swift */,
 				76C465822C22DEE3005C0D38 /* 수열과 구간 쿼리 4.swift */,
+				76314F352C241903007295DD /* 카운트 업.swift */,
 			);
 			path = LV.0;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				76C4657B2C22B614005C0D38 /* 수 조작하기 1.swift in Sources */,
 				76C465832C22DEE3005C0D38 /* 수열과 구간 쿼리 4.swift in Sources */,
 				76A29B092C202C000009A6CD /* 홀짝에 따라 다른 값 반환하기.swift in Sources */,
+				76314F362C241903007295DD /* 카운트 업.swift in Sources */,
 				76A29ADE2C2006EF0009A6CD /* main.swift in Sources */,
 				76C465882C22FF28005C0D38 /* 30804.swift in Sources */,
 			);
