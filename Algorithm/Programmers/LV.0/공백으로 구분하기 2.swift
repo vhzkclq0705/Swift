@@ -9,6 +9,6 @@ import Foundation
 
 func 공백으로구분하기2() {
     func solution(_ my_string:String) -> [String] {
-        return my_string.split(whereSeparator: { $0.isWhitespace }).map { String($0) }
+        return my_string.split(separator: " ").map { String($0) }
     }
 }
