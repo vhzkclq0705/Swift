@@ -21,7 +21,7 @@ func 배열만들기4() {
                     stk.append(arr[i])
                     i += 1
                 } else {
-                    stk.popLast()
+                    stk.removeLast()
                 }
             }
         }

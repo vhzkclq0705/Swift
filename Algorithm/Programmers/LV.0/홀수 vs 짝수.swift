@@ -12,6 +12,6 @@ func 홀수vs짝수() {
         return num_list.enumerated().reduce(into: [0, 0]) {
             if $1.offset % 2 == 0 { $0[0] += $1.element }
             else { $0[1] += $1.element }
-        }.max() as! Int
+        }.max()!
     }
 }
